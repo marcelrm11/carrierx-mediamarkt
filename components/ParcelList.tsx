@@ -1,5 +1,12 @@
 import * as React from "react";
-import { Button, Text, View, StyleSheet, ScrollView } from "react-native";
+import {
+  Button,
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import data from "../data/parcels.json";
 import { Item, Parcel } from "../types";
@@ -40,7 +47,6 @@ export const ParcelList: React.FC<ParcelListProps> = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Parcel Lists</Text>
       <ScrollView>
         {Object.entries(parcelsByDate).map(([deliveryDate, dateParcels]) => {
           return (
@@ -76,19 +82,35 @@ export function ParcelListItem({
   parcels,
 }: ParcelListItemProps) {
   return (
-    <View style={styles.container}>
-      <Text>
-        {`Parcel List ${date}`}
-        <Button
-          title="Parcel details"
+    <View style={styles.itemBox}>
+      <TouchableWithoutFeedback
+        onPress={() =>
+          navigation.navigate("ParcelListByCarrier", {
+            date: date,
+            parcels: parcels,
+          })
+        }
+      >
+        <>
+          <View>
+            <Text>{`Parcel List ${date}`}</Text>
+            <Text
+              style={styles.itemBoxText}
+            >{`X carriers picked/will up ... pickupdate`}</Text>
+            <Text style={styles.itemBoxText}>{`total items`}</Text>
+          </View>
+          <Text>{`${date}`}</Text>
+          {/* <Button
+          title={`${date}`}
           onPress={() =>
             navigation.navigate("ParcelListByCarrier", {
               date: date,
               parcels: parcels,
             })
           }
-        />
-      </Text>
+        /> */}
+        </>
+      </TouchableWithoutFeedback>
     </View>
   );
 }
@@ -96,9 +118,23 @@ export function ParcelListItem({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
+    alignItems: "stretch",
     justifyContent: "center",
-    border: "1px solid blue",
+    backgroundColor: "#fff",
+    border: "1px solid green",
+    cursor: "pointer",
+  },
+  itemBox: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    gap: "0.5em",
+    backgroundColor: "#fff",
+    border: "1px solid red",
+    padding: "1em",
+  },
+  itemBoxText: {
+    fontSize: "10px",
   },
 });
