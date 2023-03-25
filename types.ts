@@ -10,6 +10,13 @@ interface Parcel {
   pickupDate: string;
   itemsCount: number;
   items: Array<Item>;
+  carrier?: string;
 }
 
-export type { Item, Parcel };
+type RootStackParamList = {
+  ParcelList: undefined;
+  ParcelListByCarrier: { parcel: Parcel };
+  CarrierParcel: undefined;
+};
+
+export type { Item, Parcel, RootStackParamList };

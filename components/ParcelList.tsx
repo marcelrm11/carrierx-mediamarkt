@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button, Text, View, StyleSheet } from "react-native";
+import { Button, Text, View, StyleSheet, ScrollView } from "react-native";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import data from "../data/parcels.json";
 import { Item, Parcel } from "../types";
@@ -36,20 +36,23 @@ export const ParcelList: React.FC<ParcelListProps> = ({ navigation }) => {
     }
   });
 
+  console.log(parcelsByDate);
+
   return (
     <View style={styles.container}>
       <Text>Parcel Lists</Text>
-      <View>
-        {parcelList.map((parcel) => {
+      <ScrollView>
+        {Object.entries(parcelsByDate).map(([deliveryDate, dateParcels]) => {
           return (
             <ParcelListItem
-              parcel={parcel}
-              key={parcel.id.$oid}
+              date={deliveryDate}
+              parcels={dateParcels}
+              key={deliveryDate}
               navigation={navigation}
             />
           );
         })}
-      </View>
+      </ScrollView>
       <Text>Parcel Modal</Text>
       <View>
         <Button
@@ -62,18 +65,28 @@ export const ParcelList: React.FC<ParcelListProps> = ({ navigation }) => {
 };
 
 type ParcelListItemProps = {
-  parcel: Parcel;
+  date: DateConstructor | string;
   navigation: NavigationProp<ParamListBase>;
+  parcels: Parcel[];
 };
 
-function ParcelListItem({ parcel, navigation }: ParcelListItemProps) {
+export function ParcelListItem({
+  date,
+  navigation,
+  parcels,
+}: ParcelListItemProps) {
   return (
     <View style={styles.container}>
       <Text>
-        Parcel List Item {parcel.id.$oid}
+        {`Parcel List ${date}`}
         <Button
           title="Parcel details"
-          onPress={() => navigation.navigate("ParcelListByCarrier", parcel)}
+          onPress={() =>
+            navigation.navigate("ParcelListByCarrier", {
+              date: date,
+              parcels: parcels,
+            })
+          }
         />
       </Text>
     </View>

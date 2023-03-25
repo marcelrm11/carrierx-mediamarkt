@@ -6,8 +6,9 @@ import { StyleSheet, Text, View } from "react-native";
 import { ParcelList } from "./components/ParcelList";
 import { ParcelListByCarrier } from "./components/ParcelListByCarrier";
 import { CarrierParcel } from "./components/CarrierParcel";
+import { RootStackParamList } from "./types";
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
