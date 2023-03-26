@@ -187,7 +187,4 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     zIndex: 1, // Make sure the overlay is behind the modal
   },
-  // overlayVisible: {
-  //   display: "flex", // Show the overlay when the modal is visible
-  // },
 });
