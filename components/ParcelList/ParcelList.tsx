@@ -3,30 +3,17 @@ import { View, StyleSheet, ScrollView, TouchableHighlight } from "react-native";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import { Parcel } from "../../types";
 import { groupBy } from "../../utils";
-import { getParcels } from "../../storage/ParcelStorage";
 import Icon from "react-native-vector-icons/AntDesign";
 import { ParcelListItem } from "./ParcelListItem";
 import { AddParcelModal } from "./AddParcelModal";
+import { useParcels } from "../../hooks/useParcels";
 interface ParcelListProps {
   navigation: NavigationProp<ParamListBase>;
 }
 
 export const ParcelList: React.FC<ParcelListProps> = ({ navigation }) => {
-  const [parcels, setParcels] = React.useState<Parcel[]>([]);
+  const [parcels, loading, error] = useParcels();
   const [modalVisible, setModalVisible] = React.useState<boolean>(false);
-
-  React.useEffect(() => {
-    const fetchParcels = async () => {
-      try {
-        const storedParcels = await getParcels();
-        setParcels(storedParcels);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchParcels();
-  }, []);
 
   const parcelsByDate: { [key: string]: Parcel[] } = groupBy(
     parcels,

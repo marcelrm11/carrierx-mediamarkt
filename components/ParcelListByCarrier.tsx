@@ -7,6 +7,7 @@ import {
 } from "@react-navigation/native";
 import { Parcel } from "../types";
 import { groupBy, totalItems } from "../utils";
+import { useParcels } from "../hooks/useParcels";
 
 interface ParcelListByCarrierProps {
   navigation: NavigationProp<ParamListBase>;
@@ -22,7 +23,9 @@ export const ParcelListByCarrier: React.FC<ParcelListByCarrierProps> = ({
   navigation,
   route,
 }) => {
-  const { date, parcels } = route.params;
+  const { date } = route.params;
+
+  const [parcels, loading, error] = useParcels();
 
   const parcelsByCarrier: { [key: string]: Parcel[] } = groupBy(
     parcels,

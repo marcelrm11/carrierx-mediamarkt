@@ -15,8 +15,6 @@ export function ParcelListItem({
   navigation,
   parcels,
 }: ParcelListItemProps) {
-  console.log(date);
-  console.log("now:", new Date().toLocaleDateString);
   return (
     <TouchableHighlight
       onPress={() =>
