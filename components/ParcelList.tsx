@@ -6,10 +6,12 @@ import {
   StyleSheet,
   ScrollView,
   TouchableWithoutFeedback,
+  TouchableHighlight,
 } from "react-native";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import data from "../data/parcels.json";
 import { Item, Parcel } from "../types";
+import { groupBy } from "../utils";
 
 interface ParcelListProps {
   navigation: NavigationProp<ParamListBase>;
@@ -32,16 +34,10 @@ export const ParcelList: React.FC<ParcelListProps> = ({ navigation }) => {
     fetchParcelList();
   }, []);
 
-  const parcelsByDate: { [key: string]: Parcel[] } = {};
-
-  parcelList.forEach((parcel) => {
-    const deliveryDate = new Date(parcel.deliveryDate).toLocaleDateString();
-    if (!parcelsByDate[deliveryDate]) {
-      parcelsByDate[deliveryDate] = [parcel];
-    } else {
-      parcelsByDate[deliveryDate].push(parcel);
-    }
-  });
+  const parcelsByDate: { [key: string]: Parcel[] } = groupBy(
+    parcelList,
+    "deliveryDate"
+  );
 
   console.log(parcelsByDate);
 
@@ -82,36 +78,25 @@ export function ParcelListItem({
   parcels,
 }: ParcelListItemProps) {
   return (
-    <View style={styles.itemBox}>
-      <TouchableWithoutFeedback
-        onPress={() =>
-          navigation.navigate("ParcelListByCarrier", {
-            date: date,
-            parcels: parcels,
-          })
-        }
-      >
-        <>
-          <View>
-            <Text>{`Parcel List ${date}`}</Text>
-            <Text
-              style={styles.itemBoxText}
-            >{`X carriers picked/will up ... pickupdate`}</Text>
-            <Text style={styles.itemBoxText}>{`total items`}</Text>
-          </View>
-          <Text>{`${date}`}</Text>
-          {/* <Button
-          title={`${date}`}
-          onPress={() =>
-            navigation.navigate("ParcelListByCarrier", {
-              date: date,
-              parcels: parcels,
-            })
-          }
-        /> */}
-        </>
-      </TouchableWithoutFeedback>
-    </View>
+    <TouchableHighlight
+      onPress={() =>
+        navigation.navigate("ParcelListByCarrier", {
+          date: date,
+          parcels: parcels,
+        })
+      }
+    >
+      <View style={styles.itemBox}>
+        <View>
+          <Text>{`Parcel List ${date}`}</Text>
+          <Text
+            style={styles.itemBoxText}
+          >{`X carriers picked/will up ... pickupdate`}</Text>
+          <Text style={styles.itemBoxText}>{`total items`}</Text>
+        </View>
+        <Text style={styles.dateText}>{`${date}`}</Text>
+      </View>
+    </TouchableHighlight>
   );
 }
 
@@ -119,22 +104,27 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "stretch",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     backgroundColor: "#fff",
-    border: "1px solid green",
-    cursor: "pointer",
+    padding: 10,
   },
   itemBox: {
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     alignItems: "center",
-    gap: "0.5em",
+
     backgroundColor: "#fff",
-    border: "1px solid red",
-    padding: "1em",
+    borderBottomWidth: 1,
+    borderBottomColor: "grey",
+    padding: 10,
   },
   itemBoxText: {
-    fontSize: "10px",
+    fontSize: 10,
+  },
+  dateText: {
+    fontSize: 10,
+    color: "red",
+    fontWeight: "500",
   },
 });

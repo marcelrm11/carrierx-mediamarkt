@@ -6,6 +6,7 @@ import {
   RouteProp,
 } from "@react-navigation/native";
 import { Parcel } from "../types";
+import { groupBy, totalItems } from "../utils";
 
 interface ParcelListByCarrierProps {
   navigation: NavigationProp<ParamListBase>;
@@ -22,23 +23,13 @@ export const ParcelListByCarrier: React.FC<ParcelListByCarrierProps> = ({
   route,
 }) => {
   const { date, parcels } = route.params;
-  console.log(parcels);
-  const parcelsByCarrier: { [key: string]: Parcel[] } = {};
 
-  parcels.forEach((parcel) => {
-    const carrier = parcel.carrier || "not assigned";
-    if (!parcelsByCarrier[carrier]) {
-      parcelsByCarrier[carrier] = [parcel];
-    } else {
-      parcelsByCarrier[carrier].push(parcel);
-    }
-  });
+  const parcelsByCarrier: { [key: string]: Parcel[] } = groupBy(
+    parcels,
+    "carrier"
+  );
 
   console.log(parcelsByCarrier);
-
-  function totalItems(parcels: Parcel[]): number {
-    return parcels.reduce((a, b) => a + b.itemsCount, 0);
-  }
 
   return (
     <View style={styles.container}>

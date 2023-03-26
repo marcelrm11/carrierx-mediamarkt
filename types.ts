@@ -14,9 +14,12 @@ interface Parcel {
 }
 
 type RootStackParamList = {
-  ParcelList: undefined;
-  ParcelListByCarrier: { parcel: Parcel };
-  CarrierParcel: undefined;
+  ParcelList: { parcel: Parcel };
+  ParcelListByCarrier: {
+    date: DateConstructor | string;
+    parcels: Parcel[];
+  };
+  CarrierParcel: { parcel: Parcel };
 };
 
 export type { Item, Parcel, RootStackParamList };
