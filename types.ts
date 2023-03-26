@@ -1,18 +1,3 @@
-type Item = {
-  $oid: string;
-};
-
-interface Parcel {
-  id: Item;
-  deliveryAdress: string;
-  deliveryDate: string;
-  pickupAdress: string;
-  pickupDate: string;
-  itemsCount: number;
-  items: Array<Item>;
-  carrier?: string;
-}
-
 type RootStackParamList = {
   ParcelList: { parcel: Parcel };
   ParcelListByCarrier: {
@@ -22,4 +7,27 @@ type RootStackParamList = {
   CarrierParcel: { parcel: Parcel };
 };
 
-export type { Item, Parcel, RootStackParamList };
+type Id = {
+  $oid: string;
+};
+
+interface Parcel {
+  id: Id;
+  deliveryAdress: string;
+  deliveryDate: string;
+  pickupAdress: string;
+  pickupDate: string;
+  itemsCount: number;
+  items: Array<Id>;
+  carrier?: string;
+}
+
+interface Driver {
+  id: Id;
+  companyName: string;
+  driver: string;
+  licensePlate: string;
+  centerAdress: string;
+}
+
+export type { RootStackParamList, Id, Parcel, Driver };

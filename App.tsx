@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from "react-native";
-import { ParcelList } from "./components/ParcelList";
+import { ParcelList } from "./components/ParcelList/ParcelList";
 import { ParcelListByCarrier } from "./components/ParcelListByCarrier";
 import { CarrierParcel } from "./components/CarrierParcel";
 import { RootStackParamList } from "./types";
