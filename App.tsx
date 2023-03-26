@@ -7,10 +7,16 @@ import { ParcelList } from "./components/ParcelList";
 import { ParcelListByCarrier } from "./components/ParcelListByCarrier";
 import { CarrierParcel } from "./components/CarrierParcel";
 import { RootStackParamList } from "./types";
+import { initParcels } from "./storage/ParcelStorage";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
+  React.useEffect(() => {
+    console.log("app initializing parcels");
+    initParcels();
+  }, []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="ParcelList">
@@ -43,5 +49,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    // fontFamily: // see 'Using Fonts' in the project documentation
   },
 });

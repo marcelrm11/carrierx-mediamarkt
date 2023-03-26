@@ -5,37 +5,38 @@ import {
   View,
   StyleSheet,
   ScrollView,
-  TouchableWithoutFeedback,
   TouchableHighlight,
 } from "react-native";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import data from "../data/parcels.json";
-import { Item, Parcel } from "../types";
+import { Parcel } from "../types";
 import { groupBy } from "../utils";
+import { getParcels } from "../storage/ParcelStorage";
+import Icon from "react-native-vector-icons/AntDesign";
+import { Modal } from "react-native";
 
 interface ParcelListProps {
   navigation: NavigationProp<ParamListBase>;
-  // other props...
 }
 
 export const ParcelList: React.FC<ParcelListProps> = ({ navigation }) => {
-  const [parcelList, setParcelList] = React.useState<Parcel[]>([]);
+  const [parcels, setParcels] = React.useState<Parcel[]>([]);
+  const [modalVisible, setModalVisible] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    // let tempParcelList = [];
-    const fetchParcelList = async () => {
+    const fetchParcels = async () => {
       try {
-        setParcelList(data);
+        const storedParcels = await getParcels();
+        setParcels(storedParcels);
       } catch (error) {
         console.log(error);
       }
     };
 
-    fetchParcelList();
+    fetchParcels();
   }, []);
 
   const parcelsByDate: { [key: string]: Parcel[] } = groupBy(
-    parcelList,
+    parcels,
     "deliveryDate"
   );
 
@@ -55,13 +56,30 @@ export const ParcelList: React.FC<ParcelListProps> = ({ navigation }) => {
           );
         })}
       </ScrollView>
-      <Text>Parcel Modal</Text>
-      <View>
-        <Button
-          title="Go to next screen"
-          // onPress={() => addParcel()}
-        />
-      </View>
+      {modalVisible && <View style={styles.overlay}></View>}
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalView}>
+            <Text>Parcel ID</Text>
+            <Text>Carrier ID</Text>
+            <Button title="Close" onPress={() => setModalVisible(false)} />
+          </View>
+        </View>
+      </Modal>
+      <TouchableHighlight
+        style={styles.buttonContainer}
+        onPress={() => setModalVisible(true)}
+      >
+        <Icon name="plus" size={20} style={styles.buttonIcon} />
+      </TouchableHighlight>
     </View>
   );
 };
@@ -127,4 +145,49 @@ const styles = StyleSheet.create({
     color: "red",
     fontWeight: "500",
   },
+  buttonContainer: {
+    backgroundColor: "red",
+    margin: "auto",
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonIcon: {
+    color: "white",
+    fontWeight: "bold",
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  overlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    zIndex: 1, // Make sure the overlay is behind the modal
+  },
+  // overlayVisible: {
+  //   display: "flex", // Show the overlay when the modal is visible
+  // },
 });
