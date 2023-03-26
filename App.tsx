@@ -13,7 +13,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   React.useEffect(() => {
-    console.log("app initializing parcels");
+    console.log("app initializing parcels from parcels.json");
     initParcels();
   }, []);
 

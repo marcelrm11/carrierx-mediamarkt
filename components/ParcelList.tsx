@@ -13,6 +13,7 @@ import { groupBy } from "../utils";
 import { getParcels } from "../storage/ParcelStorage";
 import Icon from "react-native-vector-icons/AntDesign";
 import { Modal } from "react-native";
+import { TextInput } from "react-native";
 
 interface ParcelListProps {
   navigation: NavigationProp<ParamListBase>;
@@ -40,7 +41,7 @@ export const ParcelList: React.FC<ParcelListProps> = ({ navigation }) => {
     "deliveryDate"
   );
 
-  console.log(parcelsByDate);
+  console.log("parcels by date:", parcelsByDate);
 
   return (
     <View style={styles.container}>
@@ -57,7 +58,7 @@ export const ParcelList: React.FC<ParcelListProps> = ({ navigation }) => {
         })}
       </ScrollView>
       {modalVisible && <View style={styles.overlay}></View>}
-
+      ...
       <Modal
         animationType="slide"
         transparent={true}
@@ -68,9 +69,31 @@ export const ParcelList: React.FC<ParcelListProps> = ({ navigation }) => {
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalView}>
-            <Text>Parcel ID</Text>
-            <Text>Carrier ID</Text>
-            <Button title="Close" onPress={() => setModalVisible(false)} />
+            <Text style={styles.modalTitle}>
+              Parcel and carrier information
+            </Text>
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>ID</Text>
+              <TextInput
+                style={styles.input}
+                placeholder={"641DB7B2FC13".toUpperCase()}
+              />
+            </View>
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Carrier ID</Text>
+              <TextInput
+                style={styles.input}
+                placeholder={"HET32R0G0U78".toUpperCase()}
+              />
+            </View>
+
+            <TextInput style={styles.input} />
+            <TouchableHighlight
+              style={[styles.buttonContainer, styles.modalButton]}
+              onPress={() => setModalVisible(false)}
+            >
+              <Text style={styles.buttonText}>ADD</Text>
+            </TouchableHighlight>
           </View>
         </View>
       </Modal>
@@ -78,7 +101,7 @@ export const ParcelList: React.FC<ParcelListProps> = ({ navigation }) => {
         style={styles.buttonContainer}
         onPress={() => setModalVisible(true)}
       >
-        <Icon name="plus" size={20} style={styles.buttonIcon} />
+        <Icon name="plus" size={20} style={styles.buttonText} />
       </TouchableHighlight>
     </View>
   );
@@ -124,7 +147,8 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
     justifyContent: "flex-start",
     backgroundColor: "#fff",
-    padding: 10,
+    padding: 15,
+    paddingVertical: 0,
   },
   itemBox: {
     flex: 1,
@@ -148,35 +172,24 @@ const styles = StyleSheet.create({
   buttonContainer: {
     backgroundColor: "red",
     margin: "auto",
+    marginVertical: 20,
     width: 50,
     height: 50,
     borderRadius: 25,
     justifyContent: "center",
     alignItems: "center",
-  },
-  buttonIcon: {
-    color: "white",
-    fontWeight: "bold",
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: "flex-end",
-    alignItems: "center",
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
     shadowColor: "#000",
     shadowOffset: {
-      width: 0,
-      height: 2,
+      width: 1,
+      height: 3,
     },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
+    shadowOpacity: 0.4,
+    shadowRadius: 8,
     elevation: 5,
+  },
+  buttonText: {
+    color: "white",
+    letterSpacing: 1,
   },
   overlay: {
     position: "absolute",
@@ -186,5 +199,55 @@ const styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     zIndex: 1, // Make sure the overlay is behind the modal
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "flex-end",
+    alignItems: "stretch",
+  },
+  modalView: {
+    // margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 20,
+    alignItems: "stretch",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  modalTitle: {
+    textAlign: "center",
+    marginBottom: 40,
+    fontSize: 20,
+  },
+  inputContainer: {
+    borderWidth: 1,
+    borderColor: "lightgray",
+    borderRadius: 5,
+    padding: 10,
+    marginVertical: 5,
+  },
+  label: {
+    position: "absolute",
+    left: 10,
+    top: -10,
+    backgroundColor: "white",
+    paddingHorizontal: 5,
+    fontSize: 12,
+    color: "gray",
+  },
+  input: {
+    padding: 10,
+    fontSize: 16,
+  },
+  modalButton: {
+    borderRadius: 5,
+    width: "100%",
+    // marginBottom: 0,
   },
 });

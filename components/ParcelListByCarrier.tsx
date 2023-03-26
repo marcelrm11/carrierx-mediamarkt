@@ -29,7 +29,7 @@ export const ParcelListByCarrier: React.FC<ParcelListByCarrierProps> = ({
     "carrier"
   );
 
-  console.log(parcelsByCarrier);
+  console.log(`parcels by carrier for ${date}:`, parcelsByCarrier);
 
   return (
     <View style={styles.container}>
