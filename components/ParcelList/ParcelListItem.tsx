@@ -47,9 +47,11 @@ export function ParcelListItem({
 const styles = StyleSheet.create({
   itemBoxTitle: {
     fontSize: 16,
+    color: "rgba(58, 53, 65, 0.87)",
   },
   itemBoxText: {
     fontSize: 12,
+    color: "rgba(58, 53, 65, 0.87)",
   },
   dateText: {
     fontSize: 12,

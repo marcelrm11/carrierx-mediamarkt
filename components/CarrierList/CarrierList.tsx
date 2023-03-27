@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, StyleSheet, ScrollView } from "react-native";
+import { Text, View, StyleSheet, ScrollView } from "react-native";
 import {
   NavigationProp,
   ParamListBase,
@@ -8,6 +8,7 @@ import {
 import { Parcel, RootStackParamList } from "../../types";
 import { useParcels } from "../../hooks/useParcels";
 import { CarrierListItem } from "./CarrierListItem";
+import { totalItems } from "../../utils";
 
 interface CarrierListProps {
   navigation: NavigationProp<RootStackParamList, "CarrierList">;
@@ -30,6 +31,9 @@ export const CarrierList: React.FC<CarrierListProps> = ({
 
   return (
     <View style={styles.container}>
+      <Text style={styles.topText}>{`${totalItems(
+        dateParcels
+      )} items to be picked up`}</Text>
       <ScrollView>
         {dateParcels.map((parcel: Parcel) => {
           return (
@@ -53,5 +57,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     padding: 15,
     paddingVertical: 0,
+  },
+  topText: {
+    fontSize: 12,
+    marginTop: 10,
+    marginLeft: 5,
+    color: "rgba(58, 53, 65, 0.87)",
   },
 });

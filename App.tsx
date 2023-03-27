@@ -2,7 +2,7 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 import { ParcelList } from "./components/ParcelList/ParcelList";
 import { CarrierList } from "./components/CarrierList/CarrierList";
 import { ItemsList } from "./components/ItemsList/ItemsList";
@@ -28,27 +28,18 @@ export default function App() {
         <Stack.Screen
           name="CarrierList"
           component={CarrierList}
-          options={{ title: "Parcel List --day--" }}
+          options={({ route }) => ({
+            title: `Parcel List ${route.params.date}`,
+          })}
         />
         <Stack.Screen
           name="ItemsList"
           component={ItemsList}
-          options={{ title: "--id-- Parcel List" }}
+          options={({ route }) => ({
+            title: `${route.params.parcel.carrier?.toUpperCase()} Parcel List`,
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-//  <StatusBar style="auto" />
-
-//  style={styles.container}
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-    // fontFamily: // see 'Using Fonts' in the project documentation
-  },
-});

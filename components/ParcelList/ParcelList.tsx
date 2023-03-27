@@ -7,6 +7,7 @@ import Icon from "react-native-vector-icons/AntDesign";
 import { ParcelListItem } from "./ParcelListItem";
 import { AddParcelModal } from "./AddParcelModal";
 import { useParcels } from "../../hooks/useParcels";
+import { CustomButton } from "../CustomButton";
 interface ParcelListProps {
   navigation: NavigationProp<ParamListBase>;
 }
@@ -38,14 +39,14 @@ export const ParcelList: React.FC<ParcelListProps> = ({ navigation }) => {
             );
           })}
       </ScrollView>
-      {modalVisible && <View style={styles.overlay}></View>}
+
       <AddParcelModal isVisible={modalVisible} toggle={setModalVisible} />
-      <TouchableHighlight
-        style={styles.buttonContainer}
+
+      <CustomButton
+        style={styles.roundButton}
         onPress={() => setModalVisible(true)}
-      >
-        <Icon name="plus" size={20} style={styles.buttonText} />
-      </TouchableHighlight>
+        buttonText={<Icon name="plus" size={20} />}
+      />
     </View>
   );
 };
@@ -59,35 +60,8 @@ const styles = StyleSheet.create({
     padding: 15,
     paddingVertical: 0,
   },
-  buttonContainer: {
-    backgroundColor: "red",
-    margin: "auto",
-    marginVertical: 20,
+  roundButton: {
     width: 50,
-    height: 50,
     borderRadius: 25,
-    justifyContent: "center",
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 1,
-      height: 3,
-    },
-    shadowOpacity: 0.4,
-    shadowRadius: 8,
-    elevation: 5,
-  },
-  buttonText: {
-    color: "white",
-    letterSpacing: 1,
-  },
-  overlay: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "100%",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    zIndex: 1, // Make sure the overlay is behind the modal
   },
 });
