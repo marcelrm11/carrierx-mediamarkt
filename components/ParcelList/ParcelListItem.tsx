@@ -3,6 +3,7 @@ import React from "react";
 import { TouchableHighlight, View, StyleSheet, Text } from "react-native";
 import { Parcel } from "../../types";
 import { pastOrFuture, totalItems } from "../../utils";
+import { ListBox } from "../ListBox";
 
 type ParcelListItemProps = {
   date: DateConstructor | string;
@@ -16,49 +17,34 @@ export function ParcelListItem({
   parcels,
 }: ParcelListItemProps) {
   return (
-    <TouchableHighlight
+    <ListBox
       onPress={() =>
-        navigation.navigate("ParcelListByCarrier", {
+        navigation.navigate("CarrierList", {
           date: date,
           parcels: parcels,
         })
       }
     >
-      <View style={styles.itemBox}>
-        <View>
-          <Text style={styles.itemBoxTitle}>{`Parcel List ${date}`}</Text>
-          <Text style={styles.itemBoxText}>
-            {`${parcels.length} carriers` +
-              (pastOrFuture(parcels[0].pickupDate) === "past"
-                ? " picked "
-                : " will pick ") +
-              `up the parcel ` +
-              (pastOrFuture(parcels[0].pickupDate) === "today"
-                ? "today"
-                : `on ${parcels[0].pickupDate}`)}
-          </Text>
-          <Text style={styles.itemBoxText}>{`${totalItems(
-            parcels
-          )} items`}</Text>
-        </View>
-        <Text style={styles.dateText}>{`${date}`}</Text>
+      <View>
+        <Text style={styles.itemBoxTitle}>{`Parcel List ${date}`}</Text>
+        <Text style={styles.itemBoxText}>
+          {`${parcels.length} carriers` +
+            (pastOrFuture(parcels[0].pickupDate) === "past"
+              ? " picked "
+              : " will pick ") +
+            `up the parcel ` +
+            (pastOrFuture(parcels[0].pickupDate) === "today"
+              ? "today"
+              : `on ${parcels[0].pickupDate}`)}
+        </Text>
+        <Text style={styles.itemBoxText}>{`${totalItems(parcels)} items`}</Text>
       </View>
-    </TouchableHighlight>
+      <Text style={styles.dateText}>{`${date}`}</Text>
+    </ListBox>
   );
 }
 
 const styles = StyleSheet.create({
-  itemBox: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-
-    backgroundColor: "#fff",
-    borderBottomWidth: 1,
-    borderBottomColor: "grey",
-    padding: 15,
-  },
   itemBoxTitle: {
     fontSize: 16,
   },

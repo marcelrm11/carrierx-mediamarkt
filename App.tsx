@@ -4,8 +4,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from "react-native";
 import { ParcelList } from "./components/ParcelList/ParcelList";
-import { ParcelListByCarrier } from "./components/ParcelListByCarrier";
-import { CarrierParcel } from "./components/CarrierParcel";
+import { CarrierList } from "./components/CarrierList/CarrierList";
+import { ItemsList } from "./components/ItemsList/ItemsList";
 import { RootStackParamList } from "./types";
 import { initParcels } from "./storage/ParcelStorage";
 
@@ -13,7 +13,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   React.useEffect(() => {
-    console.log("app initializing parcels from parcels.json");
+    console.log("App initializing parcels from parcels.json");
     initParcels();
   }, []);
 
@@ -26,13 +26,13 @@ export default function App() {
           options={{ title: "Parcel Lists" }}
         />
         <Stack.Screen
-          name="ParcelListByCarrier"
-          component={ParcelListByCarrier}
+          name="CarrierList"
+          component={CarrierList}
           options={{ title: "Parcel List --day--" }}
         />
         <Stack.Screen
-          name="CarrierParcel"
-          component={CarrierParcel}
+          name="ItemsList"
+          component={ItemsList}
           options={{ title: "--id-- Parcel List" }}
         />
       </Stack.Navigator>

@@ -1,21 +1,26 @@
 type RootStackParamList = {
-  ParcelList: { parcel: Parcel };
-  ParcelListByCarrier: {
-    date: DateConstructor | string;
-    parcels: Parcel[];
-  };
-  CarrierParcel: { parcel: Parcel };
+  ParcelList: {};
+  CarrierList: { date: DateConstructor | string };
+  ItemsList: { parcel: Parcel };
 };
 
 type Id = {
   $oid: string;
 };
 
+interface Item {
+  id: Id;
+  type: string;
+  model: string;
+  price: number;
+  weigth: number; // typo in json data
+}
+
 interface Parcel {
   id: Id;
-  deliveryAdress: string;
+  deliveryAdress: string; // typo in json data
   deliveryDate: string;
-  pickupAdress: string;
+  pickupAdress: string; // typo in json data
   pickupDate: string;
   itemsCount: number;
   items: Array<Id>;
@@ -27,7 +32,7 @@ interface Driver {
   companyName: string;
   driver: string;
   licensePlate: string;
-  centerAdress: string;
+  centerAdress: string; // typo in json data
 }
 
-export type { RootStackParamList, Id, Parcel, Driver };
+export type { RootStackParamList, Id, Parcel, Driver, Item };
