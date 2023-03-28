@@ -1,4 +1,4 @@
-interface RootStackParamList {
+interface RootStackParamList extends Record<string, object | undefined> {
   ParcelList: {};
   CarrierList: { date: DateConstructor | string };
   ItemsList: { parcel: Parcel };

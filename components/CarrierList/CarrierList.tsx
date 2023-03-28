@@ -1,6 +1,10 @@
 import * as React from "react";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
-import { NavigationProp, RouteProp } from "@react-navigation/native";
+import {
+  NavigationProp,
+  ParamListBase,
+  RouteProp,
+} from "@react-navigation/native";
 import { Parcel, RootStackParamList } from "../../types";
 import { useParcels } from "../../hooks/useParcels";
 import { CarrierListItem } from "./CarrierListItem";
@@ -58,6 +62,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginTop: 10,
     marginLeft: 5,
-    color: "rgba(58, 53, 65, 0.87)",
+    // color: "rgba(58, 53, 65, 0.87)",
   },
 });

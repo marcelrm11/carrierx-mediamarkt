@@ -21,7 +21,7 @@ export const ParcelList: React.FC<ParcelListProps> = ({ navigation }) => {
     "deliveryDate"
   );
 
-  console.log("parcels by date:", parcelsByDate);
+  // console.log("parcels by date:", parcelsByDate);
 
   const handleAddParcel = () => {
     setModalVisible(false);
