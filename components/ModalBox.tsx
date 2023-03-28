@@ -11,7 +11,7 @@ import { CustomButton } from "./CustomButton";
 interface ModalBoxProps {
   isVisible: boolean;
   toggle: Function;
-  onPress: TouchableHighlightProps["onPress"];
+  onPress: (...args: any[]) => void;
   children: ReactNode;
   buttonText: string;
   title: string;
@@ -39,7 +39,7 @@ export const ModalBox: React.FC<ModalBoxProps> = ({
             <Text style={styles.title}>{title}</Text>
             {children}
             <CustomButton
-              onPress={onPress}
+              onPress={(...args) => onPress && onPress(...args)}
               buttonText={buttonText}
               style={styles.modalButton}
             />

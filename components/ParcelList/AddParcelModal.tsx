@@ -1,6 +1,6 @@
 import { Picker } from "@react-native-picker/picker";
 import React from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import { TextInput, StyleSheet } from "react-native";
 import carriers from "../../data/drivers.json";
 import { CustomInput } from "../CustomInput";
 import { ModalBox } from "../ModalBox";
@@ -8,11 +8,13 @@ import { ModalBox } from "../ModalBox";
 interface AddParcelModalProps {
   isVisible: boolean;
   toggle: Function;
+  onPress: Function;
 }
 
 export const AddParcelModal: React.FC<AddParcelModalProps> = ({
   isVisible,
   toggle,
+  onPress,
 }) => {
   const [parcelId, setParcelId] = React.useState<string>("");
   const [selectedCarrier, setSelectedCarrier] =
@@ -22,7 +24,7 @@ export const AddParcelModal: React.FC<AddParcelModalProps> = ({
     <ModalBox
       isVisible={isVisible}
       toggle={toggle}
-      onPress={() => console.log("store parcel")}
+      onPress={(...args) => onPress && onPress(...args)}
       buttonText="ADD"
       title="Parcel and carrier information"
     >

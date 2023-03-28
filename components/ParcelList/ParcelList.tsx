@@ -23,6 +23,10 @@ export const ParcelList: React.FC<ParcelListProps> = ({ navigation }) => {
 
   console.log("parcels by date:", parcelsByDate);
 
+  const handleAddParcel = () => {
+    setModalVisible(false);
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -40,7 +44,11 @@ export const ParcelList: React.FC<ParcelListProps> = ({ navigation }) => {
           })}
       </ScrollView>
 
-      <AddParcelModal isVisible={modalVisible} toggle={setModalVisible} />
+      <AddParcelModal
+        isVisible={modalVisible}
+        toggle={setModalVisible}
+        onPress={handleAddParcel}
+      />
 
       <CustomButton
         style={styles.roundButton}

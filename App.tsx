@@ -2,7 +2,6 @@ import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 import { ParcelList } from "./components/ParcelList/ParcelList";
 import { CarrierList } from "./components/CarrierList/CarrierList";
 import { ItemsList } from "./components/ItemsList/ItemsList";

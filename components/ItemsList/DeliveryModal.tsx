@@ -1,16 +1,24 @@
 import * as React from "react";
-import { View, Text, TextInput, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableHighlightProps,
+} from "react-native";
 import { CustomInput } from "../CustomInput";
 import { ModalBox } from "../ModalBox";
 
 interface DeliveryModalProps {
   isVisible: boolean;
   toggle: Function;
+  onPress: Function;
 }
 
 export const DeliveryModal: React.FC<DeliveryModalProps> = ({
   isVisible,
   toggle,
+  onPress,
 }) => {
   const [driversName, setDriversName] = React.useState<string>("");
   const [licensePlate, setLicensePlate] = React.useState<string>("");
@@ -19,7 +27,7 @@ export const DeliveryModal: React.FC<DeliveryModalProps> = ({
     <ModalBox
       isVisible={isVisible}
       toggle={toggle}
-      onPress={() => toggle(false)}
+      onPress={(...args) => onPress && onPress(...args)}
       buttonText="NEXT"
       title="Delivery information"
     >

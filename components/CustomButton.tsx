@@ -9,7 +9,7 @@ import {
 } from "react-native";
 
 interface CustomButtonProps {
-  onPress: TouchableHighlightProps["onPress"];
+  onPress: (...args: any[]) => void;
   buttonText: string | React.ReactNode;
   style?: StyleProp<ViewStyle>;
 }
@@ -20,7 +20,10 @@ export const CustomButton: React.FC<CustomButtonProps> = ({
   style,
 }) => {
   return (
-    <TouchableHighlight style={[styles.button, style]} onPress={onPress}>
+    <TouchableHighlight
+      style={[styles.button, style]}
+      onPress={(...args) => onPress && onPress(...args)}
+    >
       <Text style={styles.buttonText}>{buttonText}</Text>
     </TouchableHighlight>
   );

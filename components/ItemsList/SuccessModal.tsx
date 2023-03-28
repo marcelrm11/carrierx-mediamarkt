@@ -6,24 +6,31 @@ import {
   StyleSheet,
   TouchableHighlightProps,
 } from "react-native";
-import { CustomButton } from "./CustomButton";
+import { CustomButton } from "../CustomButton";
+import Ionicon from "react-native-vector-icons/Ionicons";
 
-interface CentralModalProps {
+interface SuccessModalProps {
   isVisible: boolean;
   toggle: Function;
-  onPress: TouchableHighlightProps["onPress"];
-  icon: ReactNode;
-  message: string;
-  buttonText: string;
+  success: boolean;
+  onPress: Function;
 }
 
-export const CentralModal: React.FC<CentralModalProps> = ({
+const Icon = ({ success }: { success: boolean }) => {
+  return (
+    <Ionicon
+      name={success ? "checkmark-circle-outline" : "alert-circle-outline"}
+      size={140}
+      style={styles.icon}
+    />
+  );
+};
+
+export const SuccessModal: React.FC<SuccessModalProps> = ({
   isVisible,
   toggle,
+  success,
   onPress,
-  icon,
-  message,
-  buttonText,
 }) => {
   return (
     <>
@@ -36,11 +43,17 @@ export const CentralModal: React.FC<CentralModalProps> = ({
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalView}>
-            {icon}
-            <Text style={styles.message}>{message}</Text>
+            <Icon success={success} />
+
+            <Text style={styles.message}>
+              {success
+                ? "Parcel successfully delivered to the carrier"
+                : "Some information is wrong"}
+            </Text>
+
             <CustomButton
-              onPress={onPress}
-              buttonText={buttonText}
+              onPress={(...args) => onPress && onPress(...args)}
+              buttonText={success ? "GO TO PARCEL LIST" : "BACK"}
               style={styles.modalButton}
             />
           </View>
@@ -62,7 +75,7 @@ const styles = StyleSheet.create({
     // margin: 20,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 20,
+    padding: 30,
     alignItems: "stretch",
     shadowColor: "#000",
     shadowOffset: {
@@ -74,13 +87,13 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   modalButton: {
-    marginBottom: 10,
+    marginBottom: 15,
   },
   message: {
     textAlign: "center",
     marginBottom: 0,
     paddingBottom: 0,
-    fontSize: 30,
+    fontSize: 28,
     borderBottomColor: "lightgray",
     borderBottomWidth: 0,
   },
@@ -92,5 +105,9 @@ const styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     zIndex: 1, // Make sure the overlay is behind the modal
+  },
+  icon: {
+    color: "red",
+    textAlign: "center",
   },
 });
