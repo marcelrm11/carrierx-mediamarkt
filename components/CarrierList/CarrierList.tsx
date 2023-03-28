@@ -1,10 +1,6 @@
 import * as React from "react";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
-import {
-  NavigationProp,
-  ParamListBase,
-  RouteProp,
-} from "@react-navigation/native";
+import { NavigationProp, RouteProp } from "@react-navigation/native";
 import { Parcel, RootStackParamList } from "../../types";
 import { useParcels } from "../../hooks/useParcels";
 import { CarrierListItem } from "./CarrierListItem";

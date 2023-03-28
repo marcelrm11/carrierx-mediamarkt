@@ -8,7 +8,7 @@ import {
 import { Item, RootStackParamList } from "../../types";
 import storeItems from "../../data/items.json";
 import { ItemsListItem } from "./ItemsListItem";
-import { CustomButton } from "../CustomButton";
+import { CustomButton } from "../UI Components/CustomButton";
 import { DeliveryModal } from "./DeliveryModal";
 import { SuccessModal } from "./SuccessModal";
 
@@ -16,7 +16,6 @@ interface ItemsListProps {
   navigation: NavigationProp<ParamListBase>;
   route: RouteProp<RootStackParamList, "ItemsList">;
 }
-// todo: take carrier ID for the header
 export const ItemsList: React.FC<ItemsListProps> = ({ navigation, route }) => {
   const { parcel } = route.params;
   const [items, setItems] = React.useState<Item[]>([]);
@@ -25,17 +24,13 @@ export const ItemsList: React.FC<ItemsListProps> = ({ navigation, route }) => {
   const [step, setStep] = React.useState<number>(0);
   const [success, setSuccess] = React.useState<boolean>(false);
 
-  //todo: implement success flag state behavior
-
   React.useEffect(() => {
     const parcelItems = storeItems.filter((item) =>
       parcel.items.map((i) => i.$oid).includes(item.id.$oid)
     );
-    console.log(parcelItems);
     setItems(parcelItems);
   }, []);
 
-  // todo: step state variable for the modals flow
   const handleDeliveryPress = () => {
     setStep(1);
     setModalVisible(true);
@@ -53,7 +48,6 @@ export const ItemsList: React.FC<ItemsListProps> = ({ navigation, route }) => {
       setStep(0);
       setModalVisible(false);
     }
-
     setModalVisible(false);
   };
 

@@ -2,6 +2,11 @@ import { useState, useEffect } from "react";
 import { getParcels } from "../storage/ParcelStorage";
 import { Parcel } from "../types";
 
+/**
+
+A custom React hook that fetches and returns parcels from the storage
+@returns An array containing the list of parcels, a boolean indicating if the parcels are loading, and an error if there was any
+*/
 export function useParcels() {
   const [parcels, setParcels] = useState<Parcel[]>([]);
   const [loading, setLoading] = useState<boolean>(false);

@@ -1,12 +1,6 @@
-import React, { ReactNode } from "react";
-import {
-  Modal,
-  View,
-  Text,
-  StyleSheet,
-  TouchableHighlightProps,
-} from "react-native";
-import { CustomButton } from "../CustomButton";
+import React from "react";
+import { Modal, View, Text, StyleSheet } from "react-native";
+import { CustomButton } from "../UI Components/CustomButton";
 import Ionicon from "react-native-vector-icons/Ionicons";
 
 interface SuccessModalProps {
@@ -94,8 +88,6 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     paddingBottom: 0,
     fontSize: 28,
-    borderBottomColor: "lightgray",
-    borderBottomWidth: 0,
   },
   overlay: {
     position: "absolute",

@@ -3,7 +3,6 @@ import {
   TouchableHighlight,
   Text,
   StyleSheet,
-  TouchableHighlightProps,
   StyleProp,
   ViewStyle,
 } from "react-native";

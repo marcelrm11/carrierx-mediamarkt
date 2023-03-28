@@ -1,14 +1,11 @@
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React from "react";
-import { TouchableHighlight, View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { Parcel } from "../../types";
-import { pastOrFuture, totalItems } from "../../utils";
-import { ListBox } from "../ListBox";
+import { ListBox } from "../UI Components/ListBox";
 import Icon from "react-native-vector-icons/FontAwesome5";
-import AntIcon from "react-native-vector-icons/AntDesign";
 
 type CarrierListItemProps = {
-  // date: DateConstructor | string;
   navigation: NavigationProp<ParamListBase>;
   parcel: Parcel;
 };
@@ -21,6 +18,7 @@ export function CarrierListItem({ navigation, parcel }: CarrierListItemProps) {
       <View style={styles.iconContainer}>
         <Icon name="truck" size={20} style={styles.icon} />
       </View>
+
       <View>
         <Text
           style={styles.itemBoxTitle}
@@ -32,6 +30,7 @@ export function CarrierListItem({ navigation, parcel }: CarrierListItemProps) {
           style={styles.itemBoxText}
         >{`${parcel.itemsCount} items to be picked up`}</Text>
       </View>
+
       <View>
         <Text style={styles.dateText}>DELIVERY</Text>
       </View>

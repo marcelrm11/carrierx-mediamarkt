@@ -1,8 +1,8 @@
-type RootStackParamList = {
+interface RootStackParamList {
   ParcelList: {};
   CarrierList: { date: DateConstructor | string };
   ItemsList: { parcel: Parcel };
-};
+}
 
 type Id = {
   $oid: string;

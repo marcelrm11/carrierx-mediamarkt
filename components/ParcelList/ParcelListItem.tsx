@@ -1,9 +1,9 @@
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import React from "react";
-import { TouchableHighlight, View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { Parcel } from "../../types";
 import { pastOrFuture, totalItems } from "../../utils";
-import { ListBox } from "../ListBox";
+import { ListBox } from "../UI Components/ListBox";
 
 type ParcelListItemProps = {
   date: DateConstructor | string;

@@ -2,8 +2,8 @@ import { Picker } from "@react-native-picker/picker";
 import React from "react";
 import { TextInput, StyleSheet } from "react-native";
 import carriers from "../../data/drivers.json";
-import { CustomInput } from "../CustomInput";
-import { ModalBox } from "../ModalBox";
+import { CustomInput } from "../UI Components/CustomInput";
+import { ModalBox } from "../UI Components/ModalBox";
 
 interface AddParcelModalProps {
   isVisible: boolean;

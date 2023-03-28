@@ -1,18 +1,12 @@
-import React, { ReactNode } from "react";
-import {
-  Modal,
-  View,
-  Text,
-  StyleSheet,
-  TouchableHighlightProps,
-} from "react-native";
+import React from "react";
+import { Modal, View, Text, StyleSheet } from "react-native";
 import { CustomButton } from "./CustomButton";
 
 interface ModalBoxProps {
   isVisible: boolean;
   toggle: Function;
   onPress: (...args: any[]) => void;
-  children: ReactNode;
+  children: React.ReactNode;
   buttonText: string;
   title: string;
 }
@@ -58,7 +52,6 @@ const styles = StyleSheet.create({
     zIndex: 100,
   },
   modalView: {
-    // margin: 20,
     backgroundColor: "white",
     borderRadius: 20,
     padding: 20,

@@ -1,13 +1,7 @@
 import * as React from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableHighlightProps,
-} from "react-native";
-import { CustomInput } from "../CustomInput";
-import { ModalBox } from "../ModalBox";
+import { TextInput, StyleSheet } from "react-native";
+import { CustomInput } from "../UI Components/CustomInput";
+import { ModalBox } from "../UI Components/ModalBox";
 
 interface DeliveryModalProps {
   isVisible: boolean;

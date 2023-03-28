@@ -1,7 +1,7 @@
 import * as React from "react";
 import { View, StyleSheet, Text } from "react-native";
 import { Item } from "../../types";
-import { ListBox } from "../ListBox";
+import { ListBox } from "../UI Components/ListBox";
 import Icon from "react-native-vector-icons/Ionicons";
 import { useIcon } from "../../hooks/useIcon";
 
